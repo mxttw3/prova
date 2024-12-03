@@ -1,0 +1,7 @@
+{
+  "name": "provaAthenea",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
