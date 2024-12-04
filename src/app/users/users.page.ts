@@ -3,6 +3,8 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable'
 
 
 @Component({
@@ -93,6 +95,21 @@ export class UsersPage implements OnInit {
   viewUserDetails(index: number) {
     const absoluteIndex = (this.currentPage - 1) * this.usersPerPage + index;
     this.router.navigate(['/user-details', absoluteIndex]);
+  }
+
+  downloadPDF() {
+    const doc = new jsPDF();
+
+    const header = ['Name', 'Email', 'ID'];
+    const data = this.users.map(user => [user.nombre + ' ' + user.apellidos, user.email, user.dni]);
+
+    autoTable(doc, {
+      head: [header],
+      body: data,
+    });
+
+    // Guardar el PDF con el nombre "Usuarios"
+    doc.save('Usuarios.pdf');
   }
   
 }
