@@ -1,0 +1,19 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/users"></ion-back-button>
+    </ion-buttons>
+    <ion-title>User Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="user">
+    <h2>{{ user.nombre }} {{ user.apellidos }}</h2>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>ID:</strong> {{ user.dni }}</p>
+  </div>
+  <div *ngIf="!user">
+    <p>Usuario no encontrado.</p>
+  </div>
+</ion-content>

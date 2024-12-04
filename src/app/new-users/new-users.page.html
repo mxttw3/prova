@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>New User</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">New User</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Formulario para agregar un nuevo usuario -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Create New User</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form (ngSubmit)="addUser()">
+        <ion-item>
+          <ion-label position="floating">First Name</ion-label>
+          <ion-input [(ngModel)]="newUser.nombre" name="nombre" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Last Name</ion-label>
+          <ion-input [(ngModel)]="newUser.apellidos" name="apellidos" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input [(ngModel)]="newUser.email" name="email" type="email" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">ID</ion-label>
+          <ion-input [(ngModel)]="newUser.dni" name="dni" required></ion-input>
+        </ion-item>
+
+        <ion-button expand="full" type="submit" color="primary">Add User</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

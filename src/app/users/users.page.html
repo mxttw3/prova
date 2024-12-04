@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Users</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Users</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid *ngIf="users.length > 0">
+    <ion-row>
+      <ion-col size="4"><strong>Name</strong></ion-col>
+      <ion-col size="4"><strong>Email</strong></ion-col>
+      <ion-col size="4"><strong>Actions</strong></ion-col>
+    </ion-row>
+    
+    <ion-row *ngFor="let user of paginatedUsers; let i = index">
+      <ion-col size="4">{{ user.nombre }} {{ user.apellidos }}</ion-col>
+      <ion-col size="4">{{ user.email }}</ion-col>
+      <ion-col size="4">
+        <ion-button (click)="deleteUser(i)">Delete</ion-button>
+        <ion-button (click)="viewUserDetails(i)">See user</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Botones de paginación -->
+  <ion-footer *ngIf="users.length > 0">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button (click)="previousPage()" [disabled]="currentPage === 1">Previous</ion-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button (click)="nextPage()" [disabled]="currentPage * usersPerPage >= users.length">Next</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
+
+  <!-- Mensaje cuando no hay usuarios -->
+  <div *ngIf="users.length === 0" class="no-users">
+    <p>No hay usuarios disponibles.</p>
+  </div>
+</ion-content>
