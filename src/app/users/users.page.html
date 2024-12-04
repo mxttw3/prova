@@ -43,8 +43,8 @@
   </ion-footer>
 
   <div *ngIf="users.length === 0" class="no-users">
-    <p>No hay usuarios disponibles.</p>
+    <p>No users found.</p>
   </div>
   <ion-button expand="full" (click)="downloadPDF()">Download as PDF</ion-button>
-
+  <ion-button expand="full" (click)="downloadExcel()">Download as Excel</ion-button>
 </ion-content>

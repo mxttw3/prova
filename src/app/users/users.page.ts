@@ -5,6 +5,8 @@ import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable'
+import * as XLSX from 'xlsx';
+
 
 
 @Component({
@@ -108,8 +110,19 @@ export class UsersPage implements OnInit {
       body: data,
     });
 
-    // Guardar el PDF con el nombre "Usuarios"
     doc.save('Usuarios.pdf');
   }
   
+  downloadExcel() {
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.users.map(user => ({
+      Name: user.nombre + ' ' + user.apellidos,
+      Email: user.email,
+      ID: user.dni
+    })));
+  
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Usuarios');
+    
+    XLSX.writeFile(wb, 'Usuarios.xlsx');
+  }
 }
