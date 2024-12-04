@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicModule, AlertController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [IonicModule, CommonModule],
 })
+
 export class UsersPage implements OnInit {
   users: User[] = [];
   usersPerPage: number = 4;
@@ -27,10 +28,38 @@ export class UsersPage implements OnInit {
     const storedUsers = localStorage.getItem('users');
     if (storedUsers) {
       this.users = JSON.parse(storedUsers);
-      console.log('Usuarios cargados:', this.users);
+      console.log('Usuarios cargados desde localStorage:', this.users);
     } else {
-      console.log('No hay usuarios disponibles en Local Storage.');
+      this.fetchUsersFromJson();
     }
+
+    //! Si no hay usuarios, cargarlos desde el archivo JSON
+    if (this.users.length === 0) {
+      this.fetchUsersFromJson();
+    }
+  }
+
+  fetchUsersFromJson() {
+    fetch('./assets/users.json')
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Error al cargar el archivo JSON');
+        }
+        return res.json();
+      })
+      .then(json => {
+        console.log('Datos cargados desde el archivo JSON:', json);
+        this.users = json.map((userData: any) => new User(
+          userData.name,
+          userData.surname,
+          userData.email,
+          userData.id
+        ));
+        this.saveUsersToLocalStorage();
+      })
+      .catch(error => {
+        console.error('Hubo un error al obtener los datos:', error);
+      });
   }
 
   saveUsersToLocalStorage() {
@@ -62,7 +91,6 @@ export class UsersPage implements OnInit {
   }
 
   viewUserDetails(index: number) {
-    // Poder ver el index correcto segun la paginación
     const absoluteIndex = (this.currentPage - 1) * this.usersPerPage + index;
     this.router.navigate(['/user-details', absoluteIndex]);
   }

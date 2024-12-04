@@ -31,7 +31,6 @@
     </ion-row>
   </ion-grid>
 
-  <!-- Botones de paginación -->
   <ion-footer *ngIf="users.length > 0">
     <ion-toolbar>
       <ion-buttons slot="start">
@@ -43,7 +42,6 @@
     </ion-toolbar>
   </ion-footer>
 
-  <!-- Mensaje cuando no hay usuarios -->
   <div *ngIf="users.length === 0" class="no-users">
     <p>No hay usuarios disponibles.</p>
   </div>
