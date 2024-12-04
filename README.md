@@ -10,7 +10,7 @@ Para empezar a trabajar con este proyecto, sigue estos pasos:
     git clone https://github.com/mxttw3/prova.git
 
 2. **Instala las dependencias** necesarias utilizando `npm`:
-    cd tu_repositorio
+    cd prova
     npm install
 
 3. **Ejecuta el proyecto** usando el siguiente comando:
